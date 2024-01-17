@@ -1,0 +1,32 @@
+[project]
+name = "supermops"
+version = "1.0.0"
+authors = [
+  { name="Alexander Schlüter", email="alx.schlueter@gmail.com" },
+]
+description = "Super-resolution of moving point sources"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    # "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "cvxpy",
+    "cvxopt",
+    "matplotlib",
+    "mosek",
+    "numpy",
+    "pandas",
+    "psutil",
+    "scikit-learn",
+    "scipy"
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {supermops = "supermops"}

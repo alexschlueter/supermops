@@ -1,0 +1,20 @@
+\usepackage{pgfplots}
+\usepackage{subcaption}
+\pgfplotsset{compat=1.16}
+\usetikzlibrary{arrows.meta,calc,positioning}
+\usepgfplotslibrary{external}
+\tikzexternalize[prefix=figures/]
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{
+table/row sep=\\,
+cycle list/Set1-5,
+ignore legend/.style={
+    every axis legend/.code={\renewcommand\addlegendentry[2][]{}}
+}
+}
+
+\newcommand{\mv}{ \mathrm{Mv} } % move operator
+\newcommand{\Rs}{ \mathrm{Rd} } % standard Radon transform
+\newcommand{\liftVar}{\gamma}
+\newcommand{\gridmu}[1]{G_\liftVar(#1)}
+\newcommand{\gridu}[1]{G_u(#1)}

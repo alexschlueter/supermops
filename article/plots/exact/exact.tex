@@ -1,0 +1,401 @@
+\pgfplotsset{
+all axes style/.style={
+    width=\linewidth/3,
+    scale only axis,
+    % ignore legend,
+    every axis plot/.append style={
+        thick
+    }
+},
+blob axis style/.style={
+    %axis equal image,
+    height=\linewidth/3,
+    title style={yshift=2.5em},
+    all axes style,
+    axis lines=box,
+    axis line style={draw=none},
+    xmin=-2, xmax=2,
+    ymin=-2, ymax=2,
+    % ticks=none,
+    % xtick=data, ytick=data,
+    xtick=data, ytick=\empty,
+    xticklabels={correct recons., failed recons.},
+    % xticklabels={O, O},
+    % yticklabels={correct recons., failed recons.},
+    xtick pos=top,
+    % clip=false,
+    ytick pos=left,
+    tick align=inside,
+    % xtick distance=2,
+    % xticklabel style={
+    %     shift={(0,0 |- {axis description cs:0,-1})}
+    % },
+    yticklabel style={
+        % shift={(0,0 -| {axis description cs:-0.53,0})},
+        rotate=90
+    },
+    xlabel={dynamic},
+    % ylabel={static},
+    label style={font=\bfseries},
+    title style={font=\bfseries},
+    y dir=reverse
+    % axis line style={-}
+},
+blob plot style/.style={
+    % mark=blob,
+    mark=*,
+    mark options={
+        fill=YlGn-I,
+        % draw=YlGn-K,
+        % line width=4pt,
+        %thick
+    },
+    scatter,
+    % color={Set2-A},
+    only marks,
+    % scatter src=none,
+    % point meta=explicit symbolic,
+    % point meta=none,
+    visualization depends on={value \thisrow{count} \as \blobcount},
+    % visualization depends on={value \thisrow{anchor} \as \blobanchor},
+    % visualization depends on={value \thisrow{color} \as \blobcolor},
+    visualization depends on={value \thisrow{style} \as \blobstyle},
+    visualization depends on={\thisrow{size} \as \marksize},
+    scatter/@pre marker code/.style={
+        /tikz/mark size=\marksize
+    },
+    scatter/@post marker code/.style={},
+    %nodes near coords*={\pgfmathprintnumber\blobcount},
+    nodes near coords*={\blobcount},
+    every node near coord/.code={
+            % color=\blobcolor
+        \ifnum \blobstyle=0
+            \tikzset{color=white}
+        \else
+            \tikzset{color=black}
+        \fi
+        },
+    nodes near coords align={
+        %anchor=\blobanchor,xshift=3pt
+        \ifnum \blobstyle=0
+            anchor=center,xshift=0pt
+        \else
+            anchor=west,xshift=3pt
+        \fi
+        },
+},
+blob cross style/.style={
+    all axes style,
+    height=\linewidth/3,
+    axis lines=center,
+    % xmin=-1.8, xmax=1.8,
+    % ymin=-1.8, ymax=1.8,
+    xmin=-1, xmax=1,
+    ymin=-1, ymax=1,
+    ticks=none,
+    % ticks=both,
+    axis line style={-}
+},
+lines axis style/.style={
+    all axes style,
+    height=6 cm,
+    xlabel={Dynamic separation},
+    % ylabel={Correct reconstruction rate},
+    xticklabel style={
+        /pgf/number format/fixed,
+        /pgf/number format/precision=2
+    },
+    grid=major,
+    xmin=0, xmax=0.1,
+    ymin=-0.02, ymax=1.05,
+    legend pos=north west,
+    reverse legend,
+},
+lines plot style/.style={
+    mark=none
+},
+}
+\centerline{%
+%\begin{tabular}{c|c|c}
+\begin{tabular}{ccc}
+\tikzsetnextfilename{exact_blobs_t3}
+\begin{tikzpicture}[baseline]
+\begin{axis}[
+    blob axis style,
+    title={$|\mathcal{T}|=3$},
+    ylabel={static},
+    yticklabels={correct recons., failed recons.},
+    ytick=data,
+    % yticklabels={correct, failed},
+]
+    \addplot [blob plot style] table {
+        x y count size style\\
+        -1.0 -1.0 258 14.37 0\\
+        1.0 -1.0 24 4.38 1\\
+        -1.0 1.0 340 16.49 0\\
+        1.0 1.0 1378 33.2 0\\
+    };
+
+\end{axis} 
+\begin{axis}[blob cross style]
+\end{axis}
+\end{tikzpicture}%
+&
+\tikzsetnextfilename{exact_blobs_t5}
+\begin{tikzpicture}[baseline]
+\begin{axis}[
+    blob axis style,
+    title={$|\mathcal{T}|=5$},
+]
+    \addplot [blob plot style] table {
+        x y count size style\\
+        -1.0 -1.0 274 14.81 0\\
+        1.0 -1.0 9 2.68 1\\
+        -1.0 1.0 606 22.02 0\\
+        1.0 1.0 1111 29.81 0\\
+    };
+
+\end{axis} 
+\begin{axis}[blob cross style]
+\end{axis}
+\end{tikzpicture}%
+&
+\tikzsetnextfilename{exact_blobs_t7}
+\begin{tikzpicture}[baseline]
+\begin{axis}[
+    blob axis style,
+    title={$|\mathcal{T}|=7$},
+]
+    \addplot [blob plot style] table {
+        x y count size style\\
+        -1.0 -1.0 279 14.94 0\\
+        1.0 -1.0 4 1.79 1\\
+        -1.0 1.0 671 23.17 0\\
+        1.0 1.0 1046 28.93 0\\
+    };
+
+\end{axis} 
+\begin{axis}[blob cross style]
+\end{axis}
+\end{tikzpicture}%
+
+\\[0.5cm]
+\tikzsetnextfilename{exact_lines_t3}
+\begin{tikzpicture}[baseline]
+\begin{axis}[
+    lines axis style,ylabel={Correct reconstruction rate},]
+    \addplot+ [
+        lines plot style,
+    ] table {
+        x y \\
+        0.0072 0.0 \\
+        0.0215 0.0179 \\
+        0.0358 0.0406 \\
+        0.0501 0.087 \\
+        0.0643 0.1599 \\
+        0.0786 0.289 \\
+        0.0929 0.3742 \\
+    };
+    \addlegendentry{static}
+    \addplot+ [
+        lines plot style,
+    ] table {
+        x y \\
+        0.0072 0.0101 \\
+        0.0215 0.0143 \\
+        0.0358 0.0775 \\
+        0.0501 0.163 \\
+        0.0643 0.3435 \\
+        0.0786 0.4943 \\
+        0.0929 0.6258 \\
+    };
+    \addlegendentry{dimred.\ low}
+    \addplot+ [
+        lines plot style,
+    ] table {
+        x y \\
+        0.0072 0.0101 \\
+        0.0215 0.0321 \\
+        0.0358 0.0996 \\
+        0.0501 0.2536 \\
+        0.0643 0.4252 \\
+        0.0786 0.5589 \\
+        0.0929 0.6824 \\
+    };
+    \addlegendentry{dimred.\ mid}
+    \addplot+ [
+        lines plot style,
+    ] table {
+        x y \\
+        0.0072 0.0134 \\
+        0.0215 0.0214 \\
+        0.0358 0.1181 \\
+        0.0501 0.2717 \\
+        0.0643 0.4558 \\
+        0.0786 0.5894 \\
+        0.0929 0.6918 \\
+    };
+    \addlegendentry{dimred.\ high}
+    \addplot+ [
+        lines plot style,
+    ] table {
+        x y \\
+        0.0072 0.0403 \\
+        0.0215 0.05 \\
+        0.0358 0.1328 \\
+        0.0501 0.2826 \\
+        0.0643 0.4218 \\
+        0.0786 0.5399 \\
+        0.0929 0.6698 \\
+    };
+    \addlegendentry{ADCG}
+\end{axis} 
+\end{tikzpicture}%
+&
+\tikzsetnextfilename{exact_lines_t5}
+\begin{tikzpicture}[baseline]
+\begin{axis}[
+    lines axis style,ignore legend,]
+    \addplot+ [
+        lines plot style,
+    ] table {
+        x y \\
+        0.0072 0.0069 \\
+        0.0215 0.0232 \\
+        0.0358 0.0571 \\
+        0.05 0.1551 \\
+        0.0643 0.3038 \\
+        0.0785 0.3986 \\
+        0.0928 0.5512 \\
+    };
+    \addlegendentry{static}
+    \addplot+ [
+        lines plot style,
+    ] table {
+        x y \\
+        0.0072 0.0345 \\
+        0.0215 0.0965 \\
+        0.0358 0.3048 \\
+        0.05 0.5677 \\
+        0.0643 0.7167 \\
+        0.0785 0.8671 \\
+        0.0928 0.9252 \\
+    };
+    \addlegendentry{dimred.\ low}
+    \addplot+ [
+        lines plot style,
+    ] table {
+        x y \\
+        0.0072 0.0517 \\
+        0.0215 0.1004 \\
+        0.0358 0.3619 \\
+        0.05 0.6304 \\
+        0.0643 0.7577 \\
+        0.0785 0.9266 \\
+        0.0928 0.9606 \\
+    };
+    \addlegendentry{dimred.\ mid}
+    \addplot+ [
+        lines plot style,
+    ] table {
+        x y \\
+        0.0072 0.0586 \\
+        0.0215 0.139 \\
+        0.0358 0.4286 \\
+        0.05 0.6997 \\
+        0.0643 0.8601 \\
+        0.0785 0.9476 \\
+        0.0928 0.9764 \\
+    };
+    \addlegendentry{dimred.\ high}
+    \addplot+ [
+        lines plot style,
+    ] table {
+        x y \\
+        0.0072 0.1793 \\
+        0.0215 0.2973 \\
+        0.0358 0.6 \\
+        0.05 0.8218 \\
+        0.0643 0.9147 \\
+        0.0785 0.9615 \\
+        0.0928 0.9921 \\
+    };
+    \addlegendentry{ADCG}
+\end{axis} 
+\end{tikzpicture}%
+&
+\tikzsetnextfilename{exact_lines_t7}
+\begin{tikzpicture}[baseline]
+\begin{axis}[
+    lines axis style,ignore legend,]
+    \addplot+ [
+        lines plot style,
+    ] table {
+        x y \\
+        0.0072 0.0143 \\
+        0.0215 0.0126 \\
+        0.0358 0.1119 \\
+        0.05 0.1898 \\
+        0.0643 0.3678 \\
+        0.0786 0.49 \\
+        0.0928 0.5344 \\
+    };
+    \addlegendentry{static}
+    \addplot+ [
+        lines plot style,
+    ] table {
+        x y \\
+        0.0072 0.043 \\
+        0.0215 0.1136 \\
+        0.0358 0.493 \\
+        0.05 0.7085 \\
+        0.0643 0.8276 \\
+        0.0786 0.9167 \\
+        0.0928 0.9504 \\
+    };
+    \addlegendentry{dimred.\ low}
+    \addplot+ [
+        lines plot style,
+    ] table {
+        x y \\
+        0.0072 0.0717 \\
+        0.0215 0.1514 \\
+        0.0358 0.6189 \\
+        0.05 0.7627 \\
+        0.0643 0.8659 \\
+        0.0786 0.9467 \\
+        0.0928 0.9695 \\
+    };
+    \addlegendentry{dimred.\ mid}
+    \addplot+ [
+        lines plot style,
+    ] table {
+        x y \\
+        0.0072 0.0753 \\
+        0.0215 0.1956 \\
+        0.0358 0.6573 \\
+        0.05 0.8237 \\
+        0.0643 0.9195 \\
+        0.0786 0.9467 \\
+        0.0928 0.9809 \\
+    };
+    \addlegendentry{dimred.\ high}
+    \addplot+ [
+        lines plot style,
+    ] table {
+        x y \\
+        0.0072 0.2939 \\
+        0.0215 0.4511 \\
+        0.0358 0.8531 \\
+        0.05 0.8881 \\
+        0.0643 0.9502 \\
+        0.0786 0.9867 \\
+        0.0928 0.9695 \\
+    };
+    \addlegendentry{ADCG}
+\end{axis} 
+\end{tikzpicture}%
+
+
+\end{tabular}%
+}%

@@ -1,0 +1,13 @@
+cvxopt
+cvxpy
+Jinja2
+matplotlib
+Mosek
+numpy
+pandas
+psutil
+requests
+scikit_learn
+scipy
+tables
+tqdm
