@@ -60,10 +60,8 @@ We compare three different convex optimization problems in order to reconstruct 
 
 First, the static problem at a time instant $t$, which tries to reconstruct the snapshot $`u_t^\dagger={\sum}_{i=1}^N m_i\delta_{x_i+tv_i}`$ using only the data $f_t^\dagger$ from this time instant:
 ```math
-\tag*{$\mathrm P_{\text{stat}}^t(f^\dagger_t)$}
     \min_{u\in\mathcal{M}_+(\Omega)}\lVert u\rVert_\mathcal{M}
     \quad\text{such that } \mathrm{Ob}_tu=f^\dagger_t
-
 ```
 Second, the full-dimensional dynamic problem proposed by Alberti et al. in [2], which is set in an appropriate subset $\Lambda\subset\mathbb{R}^d\times\mathbb{R}^d$ of  $2d$-dimensional phase space and tries to reconstruct $\lambda^\dagger$ directly:
 ```math
